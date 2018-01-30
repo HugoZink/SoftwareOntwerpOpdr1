@@ -46,6 +46,33 @@ namespace CinemaTests
 		}
 
 		[TestMethod]
+		public void TestSubmittedOrderAddTickets()
+		{
+			var ticket = new Ticket() { Seat = 1 };
+
+			IOrder order = new PendingOrder();
+			order = order.Advance();
+			order.AddTicket(ticket);
+
+			Assert.AreEqual(1, order.Tickets.Count());
+			Assert.AreEqual(ticket, order.Tickets.First());
+			Assert.AreEqual("Submitted", order.State);
+		}
+
+		[TestMethod]
+		public void TestSubmittedOrderRemoveTickets()
+		{
+			var ticket = new Ticket() { Seat = 1 };
+
+			IOrder order = new PendingOrder();
+			order = order.Advance();
+			order.AddTicket(ticket);
+			order.RemoveTicket(ticket);
+
+			Assert.AreEqual(0, order.Tickets.Count());
+		}
+
+		[TestMethod]
 		public void TestCancelPendingOrder()
 		{
 			var ticket = new Ticket() { Seat = 1 };
