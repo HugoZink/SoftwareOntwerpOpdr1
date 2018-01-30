@@ -8,10 +8,13 @@ namespace SoftwareOntwerpOpdracht1.Orders
 {
     public interface IOrder
     {
-        string State {get;}
+        string State { get; }
 
-        List<Ticket> Tickets { get; set; }
+        IEnumerable<Ticket> Tickets { get; }
         IOrder Advance();
         IOrder Cancel();
+
+		void AddTicket(Ticket ticket);
+		void RemoveTicket(Ticket ticket);
     }
 }

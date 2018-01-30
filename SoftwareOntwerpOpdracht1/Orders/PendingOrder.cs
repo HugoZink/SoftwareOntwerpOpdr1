@@ -6,25 +6,43 @@ using System.Threading.Tasks;
 
 namespace SoftwareOntwerpOpdracht1.Orders
 {
-    class PendingOrder : IOrder
+    public class PendingOrder : IOrder
     {
-        public PendingOrder()
+		private List<Ticket> _tickets;
+
+		public PendingOrder()
         {
-            Tickets = new List<Ticket>();
+            _tickets = new List<Ticket>();
         }
 
         public string State { get { return "Pending"; } }
 
-        public List<Ticket> Tickets { get; set; }
+		public IEnumerable<Ticket> Tickets
+		{
+			get
+			{
+				return _tickets;
+			}
+		}
 
-        public IOrder Advance()
+		public IOrder Advance()
         {
-            return new SubmittedOrder(Tickets);
+            return new SubmittedOrder(_tickets);
         }
 
         public IOrder Cancel()
         {
-            return new CanceledOrder();
+            return new CanceledOrder(_tickets);
         }
-    }
+
+		public void AddTicket(Ticket ticket)
+		{
+			this._tickets.Add(ticket);
+		}
+
+		public void RemoveTicket(Ticket ticket)
+		{
+			this._tickets.Remove(ticket);
+		}
+	}
 }

@@ -45,8 +45,11 @@
     <Compile Include="Movies\Movie.cs" />
     <Compile Include="Movies\Room.cs" />
     <Compile Include="Movies\Show.cs" />
-    <Compile Include="Orders\Order.cs" />
-    <Compile Include="Orders\OrderStatus.cs" />
+    <Compile Include="Orders\CanceledOrder.cs" />
+    <Compile Include="Orders\IOrder.cs" />
+    <Compile Include="Orders\PaidOrder.cs" />
+    <Compile Include="Orders\PendingOrder.cs" />
+    <Compile Include="Orders\SubmittedOrder.cs" />
     <Compile Include="Orders\Ticket.cs" />
     <Compile Include="Orders\User.cs" />
     <Compile Include="Program.cs" />

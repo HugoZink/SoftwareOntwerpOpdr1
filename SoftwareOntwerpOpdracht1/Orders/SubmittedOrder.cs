@@ -8,23 +8,41 @@ namespace SoftwareOntwerpOpdracht1.Orders
 {
     class SubmittedOrder : IOrder
     {
-        public SubmittedOrder(List<Ticket> tickets)
+		private List<Ticket> _tickets;
+
+		public SubmittedOrder(List<Ticket> tickets)
         {
-            this.Tickets = tickets;
+            _tickets = tickets;
         }
 
         public string State { get { return "Submitted"; } }
 
-        public List<Ticket> Tickets { get; set; }
+		public IEnumerable<Ticket> Tickets
+		{
+			get
+			{
+				return _tickets;
+			}
+		}
 
-        public IOrder Advance()
+		public IOrder Advance()
         {
-            return new PaidOrder(Tickets);
+            return new PaidOrder(_tickets);
         }
 
         public IOrder Cancel()
         {
-            return new CanceledOrder();
+            return new CanceledOrder(_tickets);
         }
-    }
+
+		public void AddTicket(Ticket ticket)
+		{
+			this._tickets.Add(ticket);
+		}
+
+		public void RemoveTicket(Ticket ticket)
+		{
+			this._tickets.Remove(ticket);
+		}
+	}
 }

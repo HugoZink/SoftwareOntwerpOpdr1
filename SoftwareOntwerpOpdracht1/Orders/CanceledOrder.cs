@@ -8,16 +8,24 @@ namespace SoftwareOntwerpOpdracht1.Orders
 {
     class CanceledOrder : IOrder
     {
-        public CanceledOrder()
+		private List<Ticket> _tickets;
+
+		public CanceledOrder(List<Ticket> tickets)
         {
-            Tickets = new List<Ticket>();
+            _tickets = tickets;
         }
 
         public string State { get { return "Canceled"; } }
 
-        public List<Ticket> Tickets { get; set; }
+		public IEnumerable<Ticket> Tickets
+		{
+			get
+			{
+				return _tickets;
+			}
+		}
 
-        public IOrder Advance()
+		public IOrder Advance()
         {
             throw new InvalidOperationException();
         }
@@ -26,5 +34,15 @@ namespace SoftwareOntwerpOpdracht1.Orders
         {
             throw new InvalidOperationException();
         }
+
+		public void AddTicket(Ticket ticket)
+		{
+			throw new InvalidOperationException();
+		}
+
+		public void RemoveTicket(Ticket ticket)
+		{
+			throw new InvalidOperationException();
+		}
     }
 }
