@@ -9,11 +9,11 @@ namespace SoftwareOntwerpOpdracht1.Orders
 {
 	public class User
 	{
-		public List<Order> Orders { get; private set; }
+		public List<IOrder> Orders { get; private set; }
 
 		public User()
 		{
-			this.Orders = new List<Order>();
+			this.Orders = new List<IOrder>();
 		}
 	}
 }

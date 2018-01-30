@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace SoftwareOntwerpOpdracht1.Orders
 {
-	public enum OrderStatus
-	{
-		PENDING,
-		SUBMITTED,
-		PAID,
-		CANCELED
-	}
+    public interface IOrder
+    {
+        string State {get;}
+
+        List<Ticket> Tickets { get; set; }
+        IOrder Advance();
+        IOrder Cancel();
+    }
 }
