@@ -73,6 +73,9 @@ namespace SoftwareOntwerpOpdracht1.Orders
 
 		public void CheckTimeRemaining()
 		{
+			//This function will normally be called by some external source every 10 minutes.
+			//For this exercise, it will probably be manually called from the tests instead.
+
 			var now = DateTime.Now;
 
 			//Do the submitted payment reminder check
