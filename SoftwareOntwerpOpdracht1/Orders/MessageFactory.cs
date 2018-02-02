@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoftwareOntwerpOpdracht1.Orders
 {
-    class MessageFactory
+    public class MessageFactory
     {
         public static IMessage CreateMessage(User user)
 		{

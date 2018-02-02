@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SoftwareOntwerpOpdracht1.Orders;
 using System.Linq;
+using SoftwareOntwerpOpdracht1.Movies;
 
 namespace CinemaTests
 {
@@ -12,21 +13,23 @@ namespace CinemaTests
 		public void TestPendingOrderAddTickets()
 		{
 			var ticket = new Ticket() { Seat = 1 };
+			var user = new User("email");
 
-			IOrder order = new PendingOrder();
+			Order order = new Order(user);
 			order.AddTicket(ticket);
 
 			Assert.AreEqual(1, order.Tickets.Count());
 			Assert.AreEqual(ticket, order.Tickets.First());
-			Assert.AreEqual("Pending", order.State);
+			Assert.AreEqual("Pending", order.State.State);
 		}
 
 		[TestMethod]
 		public void TestPendingOrderRemoveTickets()
 		{
 			var ticket = new Ticket() { Seat = 1 };
+			var user = new User("email");
 
-			IOrder order = new PendingOrder();
+			Order order = new Order(user);
 			order.AddTicket(ticket);
 			order.RemoveTicket(ticket);
 
@@ -37,35 +40,38 @@ namespace CinemaTests
 		public void TestSubmitOrder()
 		{
 			var ticket = new Ticket() { Seat = 1 };
+			var user = new User("email");
 
-			IOrder order = new PendingOrder();
+			Order order = new Order(user);
 			order.AddTicket(ticket);
-			order = order.Advance();
+			order.Submit();
 
-			Assert.AreEqual("Submitted", order.State);
+			Assert.AreEqual("Submitted", order.State.State);
 		}
 
 		[TestMethod]
 		public void TestSubmittedOrderAddTickets()
 		{
 			var ticket = new Ticket() { Seat = 1 };
+			var user = new User("email");
 
-			IOrder order = new PendingOrder();
-			order = order.Advance();
+			Order order = new Order(user);
+			order.Submit();
 			order.AddTicket(ticket);
 
 			Assert.AreEqual(1, order.Tickets.Count());
 			Assert.AreEqual(ticket, order.Tickets.First());
-			Assert.AreEqual("Submitted", order.State);
+			Assert.AreEqual("Submitted", order.State.State);
 		}
 
 		[TestMethod]
 		public void TestSubmittedOrderRemoveTickets()
 		{
 			var ticket = new Ticket() { Seat = 1 };
+			var user = new User("email");
 
-			IOrder order = new PendingOrder();
-			order = order.Advance();
+			Order order = new Order(user);
+			order.Submit();
 			order.AddTicket(ticket);
 			order.RemoveTicket(ticket);
 
@@ -76,11 +82,13 @@ namespace CinemaTests
 		public void TestCancelPendingOrder()
 		{
 			var ticket = new Ticket() { Seat = 1 };
+			var user = new User("email");
 
-			IOrder order = new PendingOrder();
-			order = order.Cancel();
+			Order order = new Order(user);
+			order.AddTicket(ticket);
+			order.Cancel();
 
-			Assert.AreEqual("Canceled", order.State);
+			Assert.AreEqual("Canceled", order.State.State);
 			Assert.ThrowsException<InvalidOperationException>( () => { order.AddTicket(ticket); } );
 			Assert.ThrowsException<InvalidOperationException>(() => { order.RemoveTicket(ticket); });
 		}
@@ -89,12 +97,13 @@ namespace CinemaTests
 		public void TestCancelSubmittedOrder()
 		{
 			var ticket = new Ticket() { Seat = 1 };
+			var user = new User("email");
 
-			IOrder order = new PendingOrder();
-			order = order.Advance();
-			order = order.Cancel();
+			Order order = new Order(user);
+			order.AddTicket(ticket);
+			order.Cancel();
 
-			Assert.AreEqual("Canceled", order.State);
+			Assert.AreEqual("Canceled", order.State.State);
 			Assert.ThrowsException<InvalidOperationException>(() => { order.AddTicket(ticket); });
 		}
 
@@ -102,12 +111,14 @@ namespace CinemaTests
 		public void TestPaidOrder()
 		{
 			var ticket = new Ticket() { Seat = 1 };
+			var user = new User("email");
 
-			IOrder order = new PendingOrder();
-			order = order.Advance();
-			order = order.Advance();
+			Order order = new Order(user);
+			order.AddTicket(ticket);
+			order.Submit();
+			order.Pay();
 
-			Assert.AreEqual("Paid", order.State);
+			Assert.AreEqual("Paid", order.State.State);
 			Assert.ThrowsException<InvalidOperationException>(() => { order.AddTicket(ticket); });
 			Assert.ThrowsException<InvalidOperationException>(() => { order.RemoveTicket(ticket); });
 		}
@@ -116,25 +127,88 @@ namespace CinemaTests
 		public void TestPaidOrderInvalidOperations()
 		{
 			var ticket = new Ticket() { Seat = 1 };
+			var user = new User("email");
 
-			IOrder order = new PendingOrder();
-			order = order.Advance();
-			order = order.Advance();
+			Order order = new Order(user);
+			order.AddTicket(ticket);
+			order.Submit();
+			order.Pay();
 
-			Assert.ThrowsException<InvalidOperationException>(() => { order = order.Advance(); });
-			Assert.ThrowsException<InvalidOperationException>(() => { order = order.Cancel(); });
+			Assert.ThrowsException<InvalidOperationException>(() => { order.Submit(); });
+			Assert.ThrowsException<InvalidOperationException>(() => { order.Pay(); });
+			Assert.ThrowsException<InvalidOperationException>(() => { order.Cancel(); });
 		}
 
 		[TestMethod]
 		public void TestCancelOrderInvalidOperations()
 		{
 			var ticket = new Ticket() { Seat = 1 };
+			var user = new User("email");
 
-			IOrder order = new PendingOrder();
-			order = order.Cancel();
+			Order order = new Order(user);
+			order.AddTicket(ticket);
+			order.Cancel();
 
-			Assert.ThrowsException<InvalidOperationException>(() => { order = order.Advance(); });
-			Assert.ThrowsException<InvalidOperationException>(() => { order = order.Cancel(); });
+			Assert.ThrowsException<InvalidOperationException>(() => { order.Submit(); });
+			Assert.ThrowsException<InvalidOperationException>(() => { order.Pay(); });
+			Assert.ThrowsException<InvalidOperationException>(() => { order.Cancel(); });
+		}
+
+		[TestMethod]
+		public void TestMessageFactory()
+		{
+			var emailUser = new User("email");
+			var smsUser = new User("sms");
+			var whatsappUser = new User("whatsapp");
+
+			Assert.IsInstanceOfType(MessageFactory.CreateMessage(emailUser), typeof(EmailMessage));
+			Assert.IsInstanceOfType(MessageFactory.CreateMessage(smsUser), typeof(SMSMessage));
+			Assert.IsInstanceOfType(MessageFactory.CreateMessage(whatsappUser), typeof(WhatsappMessage));
+		}
+
+		[TestMethod]
+		public void TestAutomaticPaymentReminder()
+		{
+			var show = new Show()
+			{
+				Date = DateTime.Now.AddHours(23),
+				Movie = new Movie() { Title = "A movie" },
+				Room = new Room() { Number = 1 }
+			};
+
+			var user = new User("email");
+			var order = new Order(user);
+			order.Show = show;
+			order.AddTicket(new Ticket() { Seat = 1 });
+			order.Submit();
+
+			Assert.AreEqual(false, order.PaymentReminderSent);
+
+			order.CheckTimeRemaining();
+
+			Assert.AreEqual("Submitted", order.State.State);
+			Assert.AreEqual(true, order.PaymentReminderSent);
+		}
+
+		[TestMethod]
+		public void TestAutomaticCancel()
+		{
+			var show = new Show()
+			{
+				Date = DateTime.Now.AddHours(11),
+				Movie = new Movie() { Title = "A movie" },
+				Room = new Room() { Number = 1 }
+			};
+
+			var user = new User("email");
+			var order = new Order(user);
+			order.Show = show;
+			order.AddTicket(new Ticket() { Seat = 1 });
+			order.Submit();
+
+			order.CheckTimeRemaining();
+
+			Assert.AreEqual("Canceled", order.State.State);
 		}
 	}
 }

@@ -15,6 +15,7 @@ namespace SoftwareOntwerpOpdracht1.Orders
 
 		public OrderState State { get; set; }
         
+		public bool PaymentReminderSent { get; private set; }
         public IEnumerable<Ticket> Tickets { get { return _tickets; } }
 		public User User { get; private set; }
 		public Show Show { get; set; }
@@ -24,6 +25,7 @@ namespace SoftwareOntwerpOpdracht1.Orders
 			this.User = user;
             this._tickets = new List<Ticket>();
 
+			this.State = OrderStateFactory.GetInitialOrder();
 			this.messager = MessageFactory.CreateMessage(user);
 			this.logger = LoggerFactory.CreateLogger();
 		}
@@ -60,7 +62,7 @@ namespace SoftwareOntwerpOpdracht1.Orders
 			this.State = this.State.Pay();
 
 			this.messager.SendMessage(User, "Your order has been successfully paid. Enjoy the show!");
-			this.logger.Log($"User {User.ToString()} has paid for their order.");
+			this.logger.Log($"User {User.id} has paid for their order.");
 		}
 
 		public void Cancel()
@@ -68,7 +70,7 @@ namespace SoftwareOntwerpOpdracht1.Orders
 			this.State = this.State.Cancel();
 
 			this.messager.SendMessage(User, "Your order has been successfully canceled.");
-			this.logger.Log($"User {User.ToString()} has canceled their order.");
+			this.logger.Log($"User {User.id} has canceled their order.");
 		}
 
 		public void CheckTimeRemaining()
@@ -93,15 +95,21 @@ namespace SoftwareOntwerpOpdracht1.Orders
 
 		private void PerformPaymentReminder()
 		{
+			if(PaymentReminderSent)
+			{
+				return;
+			}
+
 			this.messager.SendMessage(User, "You have not paid for your order yet.");
+			PaymentReminderSent = true;
 		}
 
 		private void PerformAutomaticCancel()
 		{
-			this.State.Cancel();
+			this.State = this.State.Cancel();
 
 			this.messager.SendMessage(User, "Your order has been automatically canceled.");
-			this.logger.Log($"User {User.ToString()} had their order automatically canceled, due to failure to pay in time.");
+			this.logger.Log($"User {User.id} had their order automatically canceled, due to failure to pay in time.");
 		}
     }
 }
