@@ -46,12 +46,23 @@
     <Compile Include="Movies\Room.cs" />
     <Compile Include="Movies\Show.cs" />
     <Compile Include="Orders\CanceledOrder.cs" />
-    <Compile Include="Orders\IOrder.cs" />
+    <Compile Include="Orders\DatabaseLogger.cs" />
+    <Compile Include="Orders\EmailMessage.cs" />
+    <Compile Include="Orders\ILogger.cs" />
+    <Compile Include="Orders\IMessage.cs" />
+    <Compile Include="Orders\LoggerFactory.cs" />
+    <Compile Include="Orders\MessageFactory.cs" />
+    <Compile Include="Orders\Order.cs" />
+    <Compile Include="Orders\OrderState.cs" />
+    <Compile Include="Orders\OrderStateFactory.cs" />
     <Compile Include="Orders\PaidOrder.cs" />
     <Compile Include="Orders\PendingOrder.cs" />
+    <Compile Include="Orders\SMSMessage.cs" />
     <Compile Include="Orders\SubmittedOrder.cs" />
+    <Compile Include="Orders\TextFileLogger.cs" />
     <Compile Include="Orders\Ticket.cs" />
     <Compile Include="Orders\User.cs" />
+    <Compile Include="Orders\WhatsappMessage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

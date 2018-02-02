@@ -10,7 +10,8 @@ namespace SoftwareOntwerpOpdracht1.Orders
     {
         public void Log(string text)
         {
-            throw new NotImplementedException();
+			Console.WriteLine("Logging the following to the database:");
+			Console.WriteLine(text);
         }
     }
 }

@@ -10,7 +10,15 @@ namespace SoftwareOntwerpOpdracht1.Orders
     {
         public override string State { get { return "Submitted"; } }
 
-        public override OrderState Cancel() {
+		public override bool CanManageTickets
+		{
+			get
+			{
+				return true;
+			}
+		}
+
+		public override OrderState Cancel() {
             return new CanceledOrder();
         }
 

@@ -11,5 +11,7 @@ namespace SoftwareOntwerpOpdracht1.Movies
 		public Movie Movie { get; set; }
 
 		public Room Room { get; set; }
+
+		public DateTime Date { get; set; }
 	}
 }

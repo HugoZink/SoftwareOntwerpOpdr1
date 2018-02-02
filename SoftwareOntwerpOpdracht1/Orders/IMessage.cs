@@ -8,6 +8,6 @@ namespace SoftwareOntwerpOpdracht1.Orders
 {
     public interface IMessage
     {
-        void SendMessage(User user);
+        void SendMessage(User user, string message);
     }
 }

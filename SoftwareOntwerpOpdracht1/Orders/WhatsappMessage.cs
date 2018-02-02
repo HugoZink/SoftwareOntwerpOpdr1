@@ -8,9 +8,10 @@ namespace SoftwareOntwerpOpdracht1.Orders
 {
     class WhatsappMessage : IMessage
     {
-        public void SendMessage(User user)
+        public void SendMessage(User user, string message)
         {
-            throw new NotImplementedException();
+			Console.WriteLine("Writing the following WhatsApp message to user " + user.ToString());
+			Console.WriteLine(message);
         }
     }
 }

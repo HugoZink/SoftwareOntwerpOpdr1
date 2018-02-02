@@ -10,7 +10,15 @@ namespace SoftwareOntwerpOpdracht1.Orders
     {
         public override string State { get { return "Pending"; } }
 
-        public override OrderState Submit() {
+		public override bool CanManageTickets
+		{
+			get
+			{
+				return true;
+			}
+		}
+
+		public override OrderState Submit() {
             return new SubmittedOrder();
         }
 

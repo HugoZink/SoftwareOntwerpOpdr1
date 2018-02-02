@@ -10,6 +10,13 @@ namespace SoftwareOntwerpOpdracht1.Orders
     {
         public abstract string State { get; }
 
+		public virtual bool CanManageTickets {
+			get
+			{
+				return false;
+			}
+		}
+
         public virtual OrderState Submit() { throw new InvalidOperationException(); }
 
         public virtual OrderState Cancel() { throw new InvalidOperationException(); }
