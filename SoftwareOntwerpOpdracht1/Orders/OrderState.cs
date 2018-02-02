@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace SoftwareOntwerpOpdracht1.Orders
 {
-    class PendingOrder : OrderState
+    public abstract class OrderState
     {
-        public override string State { get { return "Pending"; } }
+        public abstract string State { get; }
 
         public virtual OrderState Submit() { throw new InvalidOperationException(); }
 
         public virtual OrderState Cancel() { throw new InvalidOperationException(); }
+
+        public virtual OrderState Pay() { throw new InvalidOperationException(); }
     }
 }

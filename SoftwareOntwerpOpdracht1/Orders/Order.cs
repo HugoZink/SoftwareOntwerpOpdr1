@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace SoftwareOntwerpOpdracht1.Orders
 {
-    class CanceledOrder : OrderState
+    public class Order 
     {
-        public override string State { get { return "Canceled"; } }
+        public OrderState State { get; set; }
+        
+        public void AddTicket()
+        { }
+
+        public void RemoveTicket()
+        { }
     }
 }

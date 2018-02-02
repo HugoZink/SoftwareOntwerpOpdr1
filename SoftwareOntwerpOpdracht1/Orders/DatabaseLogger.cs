@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace SoftwareOntwerpOpdracht1.Orders
 {
-    class PaidOrder : OrderState
+    class DatabaseLogger
     {
-        public override string State { get { return "Paid"; } }
-	}
+    }
 }

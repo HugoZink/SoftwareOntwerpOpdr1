@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace SoftwareOntwerpOpdracht1.Orders
 {
-    class PaidOrder : OrderState
+    class TextFileLogger : ILogger
     {
-        public override string State { get { return "Paid"; } }
-	}
+        public void Log(string text)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SoftwareOntwerpOpdracht1.Orders
 {
-    class PaidOrder : OrderState
+    class OrderStateFactory
     {
-        public override string State { get { return "Paid"; } }
-	}
+        public static OrderState GetInitialOrder() { return new PendingOrder();  }
+    }
 }

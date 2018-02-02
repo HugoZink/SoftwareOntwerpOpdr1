@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace SoftwareOntwerpOpdracht1.Orders
 {
-    class PaidOrder : OrderState
+    class SMSMessage : IMessage
     {
-        public override string State { get { return "Paid"; } }
-	}
+        public void SendMessage(User user)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

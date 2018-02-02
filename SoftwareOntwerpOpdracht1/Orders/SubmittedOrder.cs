@@ -6,43 +6,17 @@ using System.Threading.Tasks;
 
 namespace SoftwareOntwerpOpdracht1.Orders
 {
-    class SubmittedOrder : IOrder
+    class SubmittedOrder : OrderState
     {
-		private List<Ticket> _tickets;
+        public override string State { get { return "Submitted"; } }
 
-		public SubmittedOrder(List<Ticket> tickets)
-        {
-            _tickets = tickets;
+        public override OrderState Cancel() {
+
         }
 
-        public string State { get { return "Submitted"; } }
+        public override OrderState Pay() {
 
-		public IEnumerable<Ticket> Tickets
-		{
-			get
-			{
-				return _tickets;
-			}
-		}
-
-		public IOrder Advance()
-        {
-            return new PaidOrder(_tickets);
         }
 
-        public IOrder Cancel()
-        {
-            return new CanceledOrder(_tickets);
-        }
-
-		public void AddTicket(Ticket ticket)
-		{
-			this._tickets.Add(ticket);
-		}
-
-		public void RemoveTicket(Ticket ticket)
-		{
-			this._tickets.Remove(ticket);
-		}
-	}
+    }
 }

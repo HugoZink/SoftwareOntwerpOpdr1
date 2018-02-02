@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SoftwareOntwerpOpdracht1.Orders
 {
-    class PaidOrder : OrderState
+    public interface IMessage
     {
-        public override string State { get { return "Paid"; } }
-	}
+        void SendMessage(User user);
+    }
 }

@@ -10,9 +10,11 @@ namespace SoftwareOntwerpOpdracht1.Orders
 	public class User
 	{
 		public List<IOrder> Orders { get; private set; }
+        public string MessagePreference { get; private set; } 
 
-		public User()
+		public User(string preference)
 		{
+            this.MessagePreference = preference;
 			this.Orders = new List<IOrder>();
 		}
 	}

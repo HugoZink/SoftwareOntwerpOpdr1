@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace SoftwareOntwerpOpdracht1.Orders
 {
-    class PaidOrder : OrderState
+    class LoggerFactory
     {
-        public override string State { get { return "Paid"; } }
-	}
+        public static ILogger CreateLogger() {
+            return new TextFileLogger();
+            // return new DatabaseLogger();
+        }
+    }
 }
