@@ -11,12 +11,11 @@ namespace SoftwareOntwerpOpdracht1.Orders
         public override string State { get { return "Submitted"; } }
 
         public override OrderState Cancel() {
-
+            return new CanceledOrder();
         }
 
         public override OrderState Pay() {
-
+            return new PaidOrder();
         }
-
     }
 }

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace SoftwareOntwerpOpdracht1.Orders
 {
-    class DatabaseLogger
+    class DatabaseLogger : ILogger
     {
+        public void Log(string text)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -9,11 +9,22 @@ namespace SoftwareOntwerpOpdracht1.Orders
     public class Order 
     {
         public OrderState State { get; set; }
-        
-        public void AddTicket()
-        { }
+        private List<Ticket> _tickets;
+        public IEnumerable<Ticket> Tickets { get { return _tickets; } }
 
-        public void RemoveTicket()
-        { }
+        public Order()
+        {
+            this._tickets = new List<Ticket>();
+        }
+        
+        public void AddTicket(Ticket ticket)
+        {
+            _tickets.Add(ticket);
+        }
+
+        public void RemoveTicket(Ticket ticket)
+        {
+            _tickets.Remove(ticket);
+        }
     }
 }

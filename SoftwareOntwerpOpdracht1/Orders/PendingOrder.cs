@@ -10,8 +10,12 @@ namespace SoftwareOntwerpOpdracht1.Orders
     {
         public override string State { get { return "Pending"; } }
 
-        public virtual OrderState Submit() { throw new InvalidOperationException(); }
+        public override OrderState Submit() {
+            return new SubmittedOrder();
+        }
 
-        public virtual OrderState Cancel() { throw new InvalidOperationException(); }
+        public override OrderState Cancel() {
+            return new CanceledOrder();
+        }
     }
 }
