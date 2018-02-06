@@ -8,6 +8,14 @@ namespace SoftwareOntwerpOpdracht1.Movies
 {
 	public class Room
 	{
-		public int Number { get; set; }
+        /* 
+         * The number of the room
+         */
+        public int Number { get; set; }
+
+        /* 
+         * The Total seats of a room
+         */
+        public int AvailableRoomSeats { get; set; } 
 	}
 }

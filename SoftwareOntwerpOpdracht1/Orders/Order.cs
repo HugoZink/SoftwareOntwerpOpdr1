@@ -29,7 +29,22 @@ namespace SoftwareOntwerpOpdracht1.Orders
 			this.messager = MessageFactory.CreateMessage(user);
 			this.logger = LoggerFactory.CreateLogger();
 		}
-        
+
+        public int UpdateAvaibableTickets()
+        {
+            return Show.Room.AvailableRoomSeats - _tickets.Count();
+        }
+
+        public void AddOption()
+        {
+
+        }
+
+        public void RemoveOption()
+        {
+
+        }
+
         public void AddTicket(Ticket ticket)
         {
 			if (!State.CanManageTickets)
