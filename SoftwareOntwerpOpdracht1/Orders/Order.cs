@@ -10,6 +10,7 @@ namespace SoftwareOntwerpOpdracht1.Orders
     public class Order 
     {
 		private List<Ticket> _tickets;
+		private List<Option> _options;
 		private IMessage messager;
 		private ILogger logger;
 
@@ -17,6 +18,7 @@ namespace SoftwareOntwerpOpdracht1.Orders
         
 		public bool PaymentReminderSent { get; private set; }
         public IEnumerable<Ticket> Tickets { get { return _tickets; } }
+		public IEnumerable<Option> Options { get { return _options; } }
 		public User User { get; private set; }
 		public Show Show { get; set; }
 
@@ -24,25 +26,21 @@ namespace SoftwareOntwerpOpdracht1.Orders
         {
 			this.User = user;
             this._tickets = new List<Ticket>();
+			this._options = new List<Option>();
 
 			this.State = OrderStateFactory.GetInitialOrder();
 			this.messager = MessageFactory.CreateMessage(user);
 			this.logger = LoggerFactory.CreateLogger();
 		}
 
-        public int UpdateAvaibableTickets()
+        public void AddOption(Option option)
         {
-            return Show.Room.AvailableRoomSeats - _tickets.Count();
+			this._options.Add(option);
         }
 
-        public void AddOption()
+        public void RemoveOption(Option option)
         {
-
-        }
-
-        public void RemoveOption()
-        {
-
+			this._options.Remove(option);
         }
 
         public void AddTicket(Ticket ticket)

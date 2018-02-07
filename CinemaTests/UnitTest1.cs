@@ -210,5 +210,75 @@ namespace CinemaTests
 
 			Assert.AreEqual("Canceled", order.State.State);
 		}
+
+		[TestMethod]
+		public void TestPopcornOption()
+		{
+			var ticket = new Ticket() { Seat = 1 };
+			var user = new User("email");
+
+			Order order = new Order(user);
+			order.AddTicket(ticket);
+			order.AddOption(new PopcornOption());
+			order.AddOption(new PopcornOption());
+
+			Assert.AreEqual(2, order.Options.Count());
+			Assert.AreEqual(2.0m, order.Options.First().Price);
+			Assert.IsInstanceOfType(order.Options.First(), typeof(PopcornOption));
+		}
+
+		[TestMethod]
+		public void TestParkingOption()
+		{
+			var ticket = new Ticket() { Seat = 1 };
+			var user = new User("email");
+
+			Order order = new Order(user);
+			order.AddTicket(ticket);
+			order.AddOption(new ParkingOption());
+
+			Assert.AreEqual(1, order.Options.Count());
+			Assert.AreEqual(3.0m, order.Options.First().Price);
+			Assert.IsInstanceOfType(order.Options.First(), typeof(ParkingOption));
+		}
+
+		[TestMethod]
+		public void TestBreakCateringOption()
+		{
+			var ticket = new Ticket() { Seat = 1 };
+			var user = new User("email");
+
+			Order order = new Order(user);
+			order.AddTicket(ticket);
+			order.AddOption(new BreakCateringOption());
+
+			Assert.AreEqual(1, order.Options.Count());
+			Assert.AreEqual(5.0m, order.Options.First().Price);
+			Assert.IsInstanceOfType(order.Options.First(), typeof(BreakCateringOption));
+		}
+
+		[TestMethod]
+		public void TestRemoveOptions()
+		{
+			var ticket = new Ticket() { Seat = 1 };
+			var user = new User("email");
+
+			Option catering = new BreakCateringOption();
+			Option popcorn = new PopcornOption();
+			Option parking = new ParkingOption();
+
+			Order order = new Order(user);
+			order.AddTicket(ticket);
+			order.AddOption(catering);
+			order.AddOption(popcorn);
+			order.AddOption(parking);
+
+			order.RemoveOption(catering);
+			order.RemoveOption(popcorn);
+
+			Assert.AreEqual(1, order.Options.Count());
+			Assert.AreEqual(3.0m, order.Options.First().Price);
+			Assert.IsInstanceOfType(order.Options.First(), typeof(ParkingOption));
+		}
 	}
 }
