@@ -14,7 +14,7 @@ namespace SoftwareOntwerpOpdracht1.Movies
         public int Number { get; set; }
 
         /* 
-         * The Total seats of a room
+         * An array of seats per room
          */
         public int AvailableRoomSeats { get; set; } 
 	}

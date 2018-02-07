@@ -42,7 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Movies\IVisitor.cs" />
     <Compile Include="Movies\Movie.cs" />
+    <Compile Include="Movies\CalculateTakenSeatsVisitor.cs" />
+    <Compile Include="Movies\SetRowUnavailableVisitor.cs" />
+    <Compile Include="Movies\PrintSeatsVisitor.cs" />
     <Compile Include="Movies\Room.cs" />
     <Compile Include="Movies\Show.cs" />
     <Compile Include="Orders\CanceledOrder.cs" />
